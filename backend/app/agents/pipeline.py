@@ -52,7 +52,7 @@ class PipelineOrchestrator:
         if not user:
             raise ValueError(f"User for job {job_id} not found.")
 
-        access_token = decrypt_token(user.encrypted_access_token)
+        access_token = decrypt_token(user.encrypted_access_token) 
 
         # Parse owner and repo name from full name (e.g. "owner/repo")
         if "/" not in job.repo_full_name:

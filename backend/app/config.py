@@ -1,18 +1,17 @@
 # pyrefly: ignore [missing-import]
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
 from typing import Optional
 from dotenv import load_dotenv
-import os 
 
 load_dotenv()
-
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", extra="ignore"
     )
 
-    DATABASE_URL: str = os.getenv("DATABASE_URL", None)
+    DATABASE_URL: str = str(os.getenv("DATABASE_URL", ""))
     REDIS_URL: str = os.getenv("REDIS_URL", "redis://localhost:6380")
 
     # LLM Settings
@@ -21,12 +20,12 @@ class Settings(BaseSettings):
     LLM_PROVIDER: str = "groq"  # "groq" or "openai"
 
     # Security
-    ENCRYPTION_KEY: str = os.getenv("ENCRYPTION_KEY",None)
+    ENCRYPTION_KEY: str = str(os.getenv("ENCRYPTION_KEY",None))
 
     # GitHub OAuth
-    GITHUB_CLIENT_ID: str = os.getenv("GITHUB_CLIENT_ID", None)
-    GITHUB_CLIENT_SECRET: str = os.getenv("GITHUB_CLIENT_SECRET", None)
-    GITHUB_REDIRECT_URI: str = (
+    GITHUB_CLIENT_ID: str = str(os.getenv("GITHUB_CLIENT_ID", None))
+    GITHUB_CLIENT_SECRET: str = str(os.getenv("GITHUB_CLIENT_SECRET", None))
+    GITHUB_REDIRECT_URI: str = str(
         os.getenv(
             "GITHUB_REDIRECT_URI",None
         )
